@@ -122,7 +122,7 @@ export default class Ship {
    */
   shoot(cellSize, spd) {
     if (!this.bullet) {
-      var vel = new Vector2D(spd, this.ori * Math.PI / 180, false);
+      var vel = new Vector2D(spd * cellSize, this.ori * Math.PI / 180, false);
 
       this.bullet = new Bullet(
         this.pos.add(vel.sca(1.5)),

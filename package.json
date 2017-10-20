@@ -1,7 +1,7 @@
 {
   "name": "asteroid",
   "version": "0.1.0",
-  "homepage": "https://amatkins.github.io/my-app",
+  "homepage": "https://amatkins.github.io/asteroid",
   "private": true,
   "dependencies": {
     "gh-pages": "^1.0.0",

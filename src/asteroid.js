@@ -111,7 +111,7 @@ export default class Asteroid {
       sLvl = subLevels[i];
       angle = (angleBase + i / subLevels.length * 360) % 360;
       radius = cellSize / 2 + sLvl * cellSize / 10;
-      offset = new Vector2D(radius, angle * Math.PI / 180);
+      offset = new Vector2D(radius, angle * Math.PI / 180, false);
 
       subUnits.push(
         new Asteroid(
