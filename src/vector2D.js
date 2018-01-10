@@ -1,134 +1,142 @@
 /* vector2D.js */
 
-/** @class Vector2D
- *  A 2D vector that has basic vector mathematical functionality.
- *  It can be created either as coordinates or magnitude and direction.
- *  It is internally stored as coordinates regardless.
- *  @type {Vector2D}
+/** @function construct
+ *  Constructs a new 2D vector using either coordinates or magnitude and angle.
+ *  @param  {Number}   a         The x coordinate or the magnitude.
+ *  @param  {Number}   b         The y coordinate or the angle.
+ *  @param  {Boolean}  coord     Whether to use coordinates (true) or magnitude and angle (false).
+ *  @return {Object}             The 2D vector containing the provided data.
  */
-export default class Vector2D {
-  /** @constructor
-   *  Constructs a new 2D vector using either coordinates or magnitude and angle.
-   *  @param  {Number}   a         The x coordinate or the magnitude.
-   *  @param  {Number}   b         The y coordinate or the angle.
-   *  @param  {Boolean}  coord     Whether to use coordinates (true) or magnitude and angle (false).
-   */
-  constructor(a, b, coord = true) {
-    this.x = coord ? a : a * Math.cos(b);
-    this.y = coord ? b : a * Math.sin(b);
-  }
+export function construct(a, b, coord = true) {
+  return {
+    x: coord ? a : a * Math.cos(b),
+    y: coord ? b : a * Math.sin(b)
+  };
+}
 
-  /** @function add
-   *  Adds another vector to this one.
-   *  @param  {Vector2D}  b   The vector to add to this one.
-   *  @return {Vector2D}      The result of the addition.
-   */
-  add(b) {
-    return new Vector2D(this.x + b.x, this.y + b.y);
-  }
+/** @function add
+ *  Adds two vectors together.
+ *  @param  {Object}  a   The left operand vector.
+ *  @param  {Object}  b   The right operand vector.
+ *  @return {Object}      The result of the addition.
+ */
+export function add(a, b) {
+  return { x: a.x + b.x, y: a.y + b.y };
+}
 
-  /** @function trm
-   *  Trims the magnitude of this vector to a certain max value.
-   *  @param  {Number}    b   The max value the magnitude should be.
-   *  @return {Vector2D}      The result of attempting to trim this vector.
-   */
-  trm(b) {
-    if (this.nrm() > b)
-      return this.sca(b / this.nrm());
-    else return this;
-  }
+/** @function angle
+ *  Finds the angle of a vector.
+ *  @param {Object} a   The vector to negate.
+ *  @return {Number}    The angle, in radians, to rotate the vector.
+ */
+export function angle(a) {
+  return Math.atan2(a.y, a.x);
+}
 
-  /** @function cmp
-   *  Clamps this vector to be between the values specified in two other vectors.
-   *  @param  {Vector2D} w   The vector containing the max and min values for the x coordinate.
-   *  @param  {Vector2D} h   The vector containing the max and min values for the y coordinate.
-   *  @return {Vector2D}     The clamped vector.
-   */
-  cmp(w, h) {
-    return new Vector2D(
-      (w.y + this.x - 2 * w.x) % (w.y - w.x) + w.x,
-      (h.y + this.y - 2 * h.x) % (h.y - h.x) + h.x
-    );
-  }
+/** @function dot
+ *  Sums the products of the individual units of two vectors.
+ *  @param  {Object} a   The left operand vector.
+ *  @param  {Object} b   The right operand vector.
+ *  @return {Number}       The dot product of this and another vector.
+ */
+export function dot(a, b) {
+  return a.x * b.x + a.y * b.y;
+}
 
-  /** @function dir
-   *  Finds the angle of this vector.
-   *  @return {Number}  The angle of this vector in radians.
-   */
-  dir() {
-    return Math.atan(this.y / this.x);
-  }
+/** @function negate
+ *  Negates the units of this vector.
+ *  @param  {Object} a   The vector to negate.
+ *  @return {Object}     The negated vector.
+ */
+export function negate(a) {
+  return { x: -a.x, y: -a.y };
+}
 
-  /** @function dot
-   *  Sums the products of the individual units of this and another vector.
-   *  @param  {Vector2D} b   The vector to preform a dot product with.
-   *  @return {Number}       The dot product of this and another vector.
-   */
-  dot(b) {
-    return this.x * b.x + this.y * b.y;
-  }
+/** @function norm
+ *  Finds the magnitude of this vector.
+ *  @param  {Object} a   The vector to normalize.
+ *  @return {Number}     The magnitude of this vector.
+ */
+export function norm(a) {
+  return Math.sqrt(a.x ** 2 + a.y ** 2);
+}
 
-  /** @function neg
-   *  Negates the units of this vector.
-   *  @return {Vector2D}   The negated vector.
-   */
-  neg() {
-    return new Vector2D(-this.x, -this.y);
-  }
+/** @function pow
+ *  Performs an exponential operation on each unit of a vector.
+ *  @param  {Object}   a   The left operand vector.
+ *  @param  {Number}   p   The exponential value.
+ *  @return {Object}       The result of the operation.
+ */
+export function pow(a, p) {
+  return { x: a.x ** p, y: a.y ** p };
+}
 
-  /** @function nrm
-   *  Finds the magnitude of this vector.
-   *  @return {Number}   The magnitude of this vector.
-   */
-  nrm() {
-    return Math.sqrt(this.x ** 2 + this.y ** 2);
-  }
+/** @function rotate
+ *  Rotates a vector about the origin.
+ *  @param  {Object}    a       The vector to rotate.
+ *  @param  {Number}    theta   The angle, in radians, to rotate by.
+ *  @return {Object}            The result of rotating this vector.
+ */
+export function rotate(a, theta) {
+  return {
+    x: Math.cos(theta) * a.x - Math.sin(theta) * a.y,
+    y: Math.sin(theta) * a.x + Math.cos(theta) * a.y
+  };
+}
 
-  /** @function pow
-   *  Performs an exponential operation on each unit of this vector.
-   *  @param  {Number}   b   The exponential value.
-   *  @return {Vector2D}     The result of the operation.
-   */
-  pow(b) {
-    return new Vector2D(this.x ** b, this.y ** b);
-  }
+/** @function scale
+ *  Scale a vector by a constant.
+ *  @param  {Object}   a   The left operand vecotr.
+ *  @param  {Number}   s   The scaler amount.
+ *  @return {Vector2D}     The result of scaling the vector.
+ */
+export function scale(a, s) {
+  return { x: a.x * s, y: a.y * s };
+}
 
-  /** @function rot
-   *  Rotates this vector about the origin.
-   *  @param  {Number}    theta   The angle to rotate this vector by.
-   *  @return {Vector2D}          The result of rotating this vector.
-   */
-  rot(theta) {
-    return new Vector2D(
-      Math.cos(theta) * this.x - Math.sin(theta) * this.y,
-      Math.sin(theta) * this.x + Math.cos(theta) * this.y
-    );
-  }
+/** @function sub
+ *  Subtracts one vector from another.
+ *  @param  {Object}   a   The left operand vecotr.
+ *  @param  {Object}   b   The right operand vector.
+ *  @return {Object}       The result of the subtraction.
+ */
+export function sub(a, b) {
+  return { x: a.x - b.x, y: a.y - b.y };
+}
 
-  /** @function sca
-   *  Scale this vector by a constant.
-   *  @param  {Number}   b   The amount to scale his vector by.
-   *  @return {Vector2D}     The result of scaling this vector.
-   */
-  sca(b) {
-    return new Vector2D(this.x * b, this.y * b);
-  }
+/** @function trim
+ *  Trims the magnitude of this vector to a certain max value.
+ *  @param  {Object} a   The vector to trim.
+ *  @param  {Number} b   The max value the magnitude should be.
+ *  @return {Object}     The result of attempting to trim the vector.
+ */
+export function trunc(a, m) {
+  var nrm = Math.sqrt(a.x ** 2 + a.y ** 2);
+  if (nrm > m)
+    return { x: a.x * m / nrm, y: a.y * m / nrm };
+  else return a;
+}
 
-  /** @function sub
-   *  Subtracts another vector from this one.
-   *  @param  {Vector2D}  b   The vector to subtract from this one.
-   *  @return {Vector2D}      The result of the subtraction.
-   */
-  sub(b) {
-    return new Vector2D(this.x - b.x, this.y - b.y);
-  }
+/** @function unit
+ *  Transforms this vector into a unit vector.
+ *  @param  {Object} a    The vector to make unit length.
+ *  @return {Object}      The result of scaling the vector to unit length.
+ */
+export function unit(a) {
+  var nrm = Math.sqrt(a.x ** 2 + a.y ** 2);
+  return { x: a.x / nrm, y: a.y / nrm };
+}
 
-  /** @function uni
-   *  Transforms this vector into a unit vector.
-   *  @return {Vector2D}   The result of scaling this vector to unit length.
-   */
-  uni() {
-    var nrm = this.nrm();
-    return new Vector2D(this.x / nrm, this.y / nrm);
-  }
+/** @function wrap
+ *  Clamps this vector to be between the values specified in two other vectors.
+ *  @param  {Object} a   The vector to wrap.
+ *  @param  {Object} w   The vector containing the max and min values for the x coordinate.
+ *  @param  {Object} h   The vector containing the max and min values for the y coordinate.
+ *  @return {Object}     The wrapped vector.
+ */
+export function wrap(a, w, h) {
+  return {
+    x: (w.y + a.x - 2 * w.x) % (w.y - w.x) + w.x,
+    y: (h.y + a.y - 2 * h.x) % (h.y - h.x) + h.x
+  };
 }

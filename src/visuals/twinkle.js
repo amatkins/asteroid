@@ -7,14 +7,12 @@
 export default class Twinkle {
   /** @constructor
    *  Constructs a new 'twinkle' visual effect.
-   *  @param  {Number} x    The x coordinate for the twinkle.
-   *  @param  {Number} y    The y coordinate for the twinkle.
+   *  @param  {Object} pos  The position of the twinkle.
    *  @param  {Number} size The size of the the twinkle.
    *  @param  {Number} life The duration of the twinkle.
    */
-  constructor(x, y, size, life) {
-    this.x = x;
-    this.y = y;
+  constructor(pos, size, life) {
+    this.pos = pos;
     this.life = life;
     this.maxLife = life;
     this.size = size;
@@ -30,9 +28,13 @@ export default class Twinkle {
   render(ctx) {
     var length = this.life / this.maxLife * this.size;
 
+    // Save the canvas context settings
     ctx.save();
+    // Set fill style to white
     ctx.fillStyle = "white";
-    ctx.fillRect(this.x - length / 2, this.y - length / 2, length, length);
+    // Draw twinkle on background
+    ctx.fillRect(this.pos.x - length / 2, this.pos.y - length / 2, length, length);
+    // Restore the canvas context settings
     ctx.restore();
   }
 
@@ -42,9 +44,6 @@ export default class Twinkle {
    */
   update() {
     this.life--;
-    if (this.life > 0)
-      return true;
-    else
-      return false;
+    return this.life;
   }
 }
