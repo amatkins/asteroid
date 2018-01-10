@@ -1,11 +1,14 @@
 {
   "main.css": "static/css/main.280cdfb0.css",
   "main.css.map": "static/css/main.280cdfb0.css.map",
-  "main.js": "static/js/main.6051752e.js",
-  "main.js.map": "static/js/main.6051752e.js.map",
-  "static\\media\\bounce.wav": "static/media/bounce.c7e1535e.wav",
-  "static\\media\\break.wav": "static/media/break.1c87f0da.wav",
-  "static\\media\\crack.wav": "static/media/crack.3a06c586.wav",
-  "static\\media\\death.wav": "static/media/death.9a287b87.wav",
-  "static\\media\\shoot.wav": "static/media/shoot.5835a0a3.wav"
+  "main.js": "static/js/main.68d5c29c.js",
+  "main.js.map": "static/js/main.68d5c29c.js.map",
+  "static\\media\\beep.wav": "static/media/beep.c849949d.wav",
+  "static\\media\\bounce.wav": "static/media/bounce.077fdc4a.wav",
+  "static\\media\\break.wav": "static/media/break.c3be409a.wav",
+  "static\\media\\crack.wav": "static/media/crack.810a2fb0.wav",
+  "static\\media\\death.wav": "static/media/death.15ac48cd.wav",
+  "static\\media\\powerup.wav": "static/media/powerup.816baf0c.wav",
+  "static\\media\\shoot.wav": "static/media/shoot.49a55ad9.wav",
+  "static\\media\\thruster.wav": "static/media/thruster.c5c8d28a.wav"
 }
